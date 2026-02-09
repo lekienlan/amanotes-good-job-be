@@ -42,3 +42,18 @@ export { Prisma }
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model CoreValue
+ * 
+ */
+export type CoreValue = Prisma.CoreValueModel
+/**
+ * Model Kudo
+ * 
+ */
+export type Kudo = Prisma.KudoModel
+/**
+ * Model Reaction
+ * 
+ */
+export type Reaction = Prisma.ReactionModel

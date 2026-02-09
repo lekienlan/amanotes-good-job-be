@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// Example models - customize based on your needs\nmodel User {\n  id                String    @id @default(uuid())\n  email             String    @unique\n  first_name        String?\n  last_name         String?\n  avatar            String?\n  points_balance    Int       @default(0) // Points received (can spend)\n  giving_budget     Int       @default(0) // Points can give (resets monthly)\n  last_budget_reset DateTime?\n  role              Role      @default(USER)\n  department        String?\n  created_at        DateTime  @default(now())\n  updated_at        DateTime  @updatedAt\n\n  @@map(\"users\")\n}\n\nenum Role {\n  USER\n  ADMIN\n  HR\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// Example models - customize based on your needs\nmodel User {\n  id                String    @id @default(uuid())\n  email             String    @unique\n  first_name        String?\n  last_name         String?\n  avatar            String?\n  points_balance    Int       @default(0) // Points received (can spend)\n  giving_budget     Int       @default(0) // Points can give (resets monthly)\n  last_budget_reset DateTime?\n  role              Role      @default(USER)\n  department        String?\n  created_at        DateTime  @default(now())\n  updated_at        DateTime  @updatedAt\n\n  // Relations\n  kudos_sent     Kudo[]     @relation(\"KudoSender\")\n  kudos_received Kudo[]     @relation(\"KudoReceiver\")\n  reactions      Reaction[]\n\n  @@map(\"users\")\n}\n\nmodel CoreValue {\n  id          String   @id @default(uuid())\n  name        String\n  description String?\n  emoji       String?\n  created_at  DateTime @default(now())\n  updated_at  DateTime @updatedAt\n\n  kudos Kudo[]\n\n  @@map(\"core_values\")\n}\n\nmodel Kudo {\n  id            String   @id @default(uuid())\n  sender_id     String\n  receiver_id   String\n  points        Int      @default(0)\n  description   String?\n  core_value_id String?\n  created_at    DateTime @default(now())\n  updated_at    DateTime @updatedAt\n\n  sender     User       @relation(\"KudoSender\", fields: [sender_id], references: [id], onDelete: Cascade)\n  receiver   User       @relation(\"KudoReceiver\", fields: [receiver_id], references: [id], onDelete: Cascade)\n  core_value CoreValue? @relation(fields: [core_value_id], references: [id], onDelete: SetNull)\n  reactions  Reaction[]\n\n  @@map(\"kudos\")\n}\n\nmodel Reaction {\n  id         String   @id @default(uuid())\n  kudo_id    String\n  user_id    String\n  emoji      String\n  created_at DateTime @default(now())\n  updated_at DateTime @updatedAt\n\n  kudo Kudo @relation(fields: [kudo_id], references: [id], onDelete: Cascade)\n  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([kudo_id, user_id, emoji])\n  @@map(\"reactions\")\n}\n\nenum Role {\n  USER\n  ADMIN\n  HR\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"points_balance\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"giving_budget\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"last_budget_reset\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"department\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"users\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"points_balance\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"giving_budget\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"last_budget_reset\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"department\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"kudos_sent\",\"kind\":\"object\",\"type\":\"Kudo\",\"relationName\":\"KudoSender\"},{\"name\":\"kudos_received\",\"kind\":\"object\",\"type\":\"Kudo\",\"relationName\":\"KudoReceiver\"},{\"name\":\"reactions\",\"kind\":\"object\",\"type\":\"Reaction\",\"relationName\":\"ReactionToUser\"}],\"dbName\":\"users\"},\"CoreValue\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emoji\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"kudos\",\"kind\":\"object\",\"type\":\"Kudo\",\"relationName\":\"CoreValueToKudo\"}],\"dbName\":\"core_values\"},\"Kudo\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sender_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"receiver_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"points\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"core_value_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sender\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"KudoSender\"},{\"name\":\"receiver\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"KudoReceiver\"},{\"name\":\"core_value\",\"kind\":\"object\",\"type\":\"CoreValue\",\"relationName\":\"CoreValueToKudo\"},{\"name\":\"reactions\",\"kind\":\"object\",\"type\":\"Reaction\",\"relationName\":\"KudoToReaction\"}],\"dbName\":\"kudos\"},\"Reaction\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kudo_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emoji\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"kudo\",\"kind\":\"object\",\"type\":\"Kudo\",\"relationName\":\"KudoToReaction\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReactionToUser\"}],\"dbName\":\"reactions\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -185,6 +185,36 @@ export interface PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.coreValue`: Exposes CRUD operations for the **CoreValue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoreValues
+    * const coreValues = await prisma.coreValue.findMany()
+    * ```
+    */
+  get coreValue(): Prisma.CoreValueDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.kudo`: Exposes CRUD operations for the **Kudo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Kudos
+    * const kudos = await prisma.kudo.findMany()
+    * ```
+    */
+  get kudo(): Prisma.KudoDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.reaction`: Exposes CRUD operations for the **Reaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reactions
+    * const reactions = await prisma.reaction.findMany()
+    * ```
+    */
+  get reaction(): Prisma.ReactionDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

@@ -276,6 +276,9 @@ export type UserWhereInput = {
   department?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  kudos_sent?: Prisma.KudoListRelationFilter
+  kudos_received?: Prisma.KudoListRelationFilter
+  reactions?: Prisma.ReactionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -291,6 +294,9 @@ export type UserOrderByWithRelationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  kudos_sent?: Prisma.KudoOrderByRelationAggregateInput
+  kudos_received?: Prisma.KudoOrderByRelationAggregateInput
+  reactions?: Prisma.ReactionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +315,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   department?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  kudos_sent?: Prisma.KudoListRelationFilter
+  kudos_received?: Prisma.KudoListRelationFilter
+  reactions?: Prisma.ReactionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -362,6 +371,9 @@ export type UserCreateInput = {
   department?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -377,6 +389,9 @@ export type UserUncheckedCreateInput = {
   department?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -392,6 +407,9 @@ export type UserUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -407,6 +425,9 @@ export type UserUncheckedUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -509,6 +530,11 @@ export type UserSumOrderByAggregateInput = {
   giving_budget?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -537,6 +563,347 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutKudos_sentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKudos_sentInput, Prisma.UserUncheckedCreateWithoutKudos_sentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKudos_sentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutKudos_receivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKudos_receivedInput, Prisma.UserUncheckedCreateWithoutKudos_receivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKudos_receivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutKudos_sentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKudos_sentInput, Prisma.UserUncheckedCreateWithoutKudos_sentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKudos_sentInput
+  upsert?: Prisma.UserUpsertWithoutKudos_sentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutKudos_sentInput, Prisma.UserUpdateWithoutKudos_sentInput>, Prisma.UserUncheckedUpdateWithoutKudos_sentInput>
+}
+
+export type UserUpdateOneRequiredWithoutKudos_receivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutKudos_receivedInput, Prisma.UserUncheckedCreateWithoutKudos_receivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKudos_receivedInput
+  upsert?: Prisma.UserUpsertWithoutKudos_receivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutKudos_receivedInput, Prisma.UserUpdateWithoutKudos_receivedInput>, Prisma.UserUncheckedUpdateWithoutKudos_receivedInput>
+}
+
+export type UserCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReactionsInput, Prisma.UserUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReactionsInput, Prisma.UserUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.UserUpsertWithoutReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReactionsInput, Prisma.UserUpdateWithoutReactionsInput>, Prisma.UserUncheckedUpdateWithoutReactionsInput>
+}
+
+export type UserCreateWithoutKudos_sentInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutKudos_sentInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutKudos_sentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutKudos_sentInput, Prisma.UserUncheckedCreateWithoutKudos_sentInput>
+}
+
+export type UserCreateWithoutKudos_receivedInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutKudos_receivedInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutKudos_receivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutKudos_receivedInput, Prisma.UserUncheckedCreateWithoutKudos_receivedInput>
+}
+
+export type UserUpsertWithoutKudos_sentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutKudos_sentInput, Prisma.UserUncheckedUpdateWithoutKudos_sentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutKudos_sentInput, Prisma.UserUncheckedCreateWithoutKudos_sentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutKudos_sentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutKudos_sentInput, Prisma.UserUncheckedUpdateWithoutKudos_sentInput>
+}
+
+export type UserUpdateWithoutKudos_sentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutKudos_sentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutKudos_receivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutKudos_receivedInput, Prisma.UserUncheckedUpdateWithoutKudos_receivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutKudos_receivedInput, Prisma.UserUncheckedCreateWithoutKudos_receivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutKudos_receivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutKudos_receivedInput, Prisma.UserUncheckedUpdateWithoutKudos_receivedInput>
+}
+
+export type UserUpdateWithoutKudos_receivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutKudos_receivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReactionsInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutReactionsInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReactionsInput, Prisma.UserUncheckedCreateWithoutReactionsInput>
+}
+
+export type UserUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReactionsInput, Prisma.UserUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReactionsInput, Prisma.UserUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReactionsInput, Prisma.UserUncheckedUpdateWithoutReactionsInput>
+}
+
+export type UserUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  kudos_sent: number
+  kudos_received: number
+  reactions: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  kudos_sent?: boolean | UserCountOutputTypeCountKudos_sentArgs
+  kudos_received?: boolean | UserCountOutputTypeCountKudos_receivedArgs
+  reactions?: boolean | UserCountOutputTypeCountReactionsArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountKudos_sentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KudoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountKudos_receivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.KudoWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReactionWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -552,6 +919,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   department?: boolean
   created_at?: boolean
   updated_at?: boolean
+  kudos_sent?: boolean | Prisma.User$kudos_sentArgs<ExtArgs>
+  kudos_received?: boolean | Prisma.User$kudos_receivedArgs<ExtArgs>
+  reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -600,10 +971,22 @@ export type UserSelectScalar = {
 }
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "first_name" | "last_name" | "avatar" | "points_balance" | "giving_budget" | "last_budget_reset" | "role" | "department" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  kudos_sent?: boolean | Prisma.User$kudos_sentArgs<ExtArgs>
+  kudos_received?: boolean | Prisma.User$kudos_receivedArgs<ExtArgs>
+  reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    kudos_sent: Prisma.$KudoPayload<ExtArgs>[]
+    kudos_received: Prisma.$KudoPayload<ExtArgs>[]
+    reactions: Prisma.$ReactionPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
@@ -1011,6 +1394,9 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  kudos_sent<T extends Prisma.User$kudos_sentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kudos_sentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  kudos_received<T extends Prisma.User$kudos_receivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kudos_receivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reactions<T extends Prisma.User$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1069,6 +1455,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1087,6 +1477,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1104,6 +1498,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -1153,6 +1551,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1201,6 +1603,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which Users to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1243,6 +1649,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to create a User.
    */
@@ -1291,6 +1701,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1358,6 +1772,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1384,6 +1802,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1404,6 +1826,78 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.kudos_sent
+ */
+export type User$kudos_sentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Kudo
+   */
+  select?: Prisma.KudoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Kudo
+   */
+  omit?: Prisma.KudoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KudoInclude<ExtArgs> | null
+  where?: Prisma.KudoWhereInput
+  orderBy?: Prisma.KudoOrderByWithRelationInput | Prisma.KudoOrderByWithRelationInput[]
+  cursor?: Prisma.KudoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KudoScalarFieldEnum | Prisma.KudoScalarFieldEnum[]
+}
+
+/**
+ * User.kudos_received
+ */
+export type User$kudos_receivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Kudo
+   */
+  select?: Prisma.KudoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Kudo
+   */
+  omit?: Prisma.KudoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.KudoInclude<ExtArgs> | null
+  where?: Prisma.KudoWhereInput
+  orderBy?: Prisma.KudoOrderByWithRelationInput | Prisma.KudoOrderByWithRelationInput[]
+  cursor?: Prisma.KudoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.KudoScalarFieldEnum | Prisma.KudoScalarFieldEnum[]
+}
+
+/**
+ * User.reactions
+ */
+export type User$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reaction
+   */
+  select?: Prisma.ReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reaction
+   */
+  omit?: Prisma.ReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReactionInclude<ExtArgs> | null
+  where?: Prisma.ReactionWhereInput
+  orderBy?: Prisma.ReactionOrderByWithRelationInput | Prisma.ReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReactionScalarFieldEnum | Prisma.ReactionScalarFieldEnum[]
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1415,4 +1909,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

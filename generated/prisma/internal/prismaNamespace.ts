@@ -384,7 +384,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  CoreValue: 'CoreValue',
+  Kudo: 'Kudo',
+  Reaction: 'Reaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "coreValue" | "kudo" | "reaction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +481,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CoreValue: {
+      payload: Prisma.$CoreValuePayload<ExtArgs>
+      fields: Prisma.CoreValueFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CoreValueFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CoreValueFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        findFirst: {
+          args: Prisma.CoreValueFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CoreValueFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        findMany: {
+          args: Prisma.CoreValueFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>[]
+        }
+        create: {
+          args: Prisma.CoreValueCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        createMany: {
+          args: Prisma.CoreValueCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CoreValueCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>[]
+        }
+        delete: {
+          args: Prisma.CoreValueDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        update: {
+          args: Prisma.CoreValueUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        deleteMany: {
+          args: Prisma.CoreValueDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CoreValueUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CoreValueUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>[]
+        }
+        upsert: {
+          args: Prisma.CoreValueUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoreValuePayload>
+        }
+        aggregate: {
+          args: Prisma.CoreValueAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCoreValue>
+        }
+        groupBy: {
+          args: Prisma.CoreValueGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoreValueGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CoreValueCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoreValueCountAggregateOutputType> | number
+        }
+      }
+    }
+    Kudo: {
+      payload: Prisma.$KudoPayload<ExtArgs>
+      fields: Prisma.KudoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.KudoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.KudoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        findFirst: {
+          args: Prisma.KudoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.KudoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        findMany: {
+          args: Prisma.KudoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>[]
+        }
+        create: {
+          args: Prisma.KudoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        createMany: {
+          args: Prisma.KudoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.KudoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>[]
+        }
+        delete: {
+          args: Prisma.KudoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        update: {
+          args: Prisma.KudoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        deleteMany: {
+          args: Prisma.KudoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.KudoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.KudoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>[]
+        }
+        upsert: {
+          args: Prisma.KudoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KudoPayload>
+        }
+        aggregate: {
+          args: Prisma.KudoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateKudo>
+        }
+        groupBy: {
+          args: Prisma.KudoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KudoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.KudoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KudoCountAggregateOutputType> | number
+        }
+      }
+    }
+    Reaction: {
+      payload: Prisma.$ReactionPayload<ExtArgs>
+      fields: Prisma.ReactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        findFirst: {
+          args: Prisma.ReactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        findMany: {
+          args: Prisma.ReactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>[]
+        }
+        create: {
+          args: Prisma.ReactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        createMany: {
+          args: Prisma.ReactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>[]
+        }
+        delete: {
+          args: Prisma.ReactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        update: {
+          args: Prisma.ReactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPayload>
+        }
+        aggregate: {
+          args: Prisma.ReactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReaction>
+        }
+        groupBy: {
+          args: Prisma.ReactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -533,6 +758,44 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CoreValueScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  emoji: 'emoji',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CoreValueScalarFieldEnum = (typeof CoreValueScalarFieldEnum)[keyof typeof CoreValueScalarFieldEnum]
+
+
+export const KudoScalarFieldEnum = {
+  id: 'id',
+  sender_id: 'sender_id',
+  receiver_id: 'receiver_id',
+  points: 'points',
+  description: 'description',
+  core_value_id: 'core_value_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type KudoScalarFieldEnum = (typeof KudoScalarFieldEnum)[keyof typeof KudoScalarFieldEnum]
+
+
+export const ReactionScalarFieldEnum = {
+  id: 'id',
+  kudo_id: 'kudo_id',
+  user_id: 'user_id',
+  emoji: 'emoji',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -730,6 +993,9 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  coreValue?: Prisma.CoreValueOmit
+  kudo?: Prisma.KudoOmit
+  reaction?: Prisma.ReactionOmit
 }
 
 /* Types for Logging */

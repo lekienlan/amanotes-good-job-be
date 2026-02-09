@@ -51,7 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  CoreValue: 'CoreValue',
+  Kudo: 'Kudo',
+  Reaction: 'Reaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -86,6 +89,44 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CoreValueScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  emoji: 'emoji',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CoreValueScalarFieldEnum = (typeof CoreValueScalarFieldEnum)[keyof typeof CoreValueScalarFieldEnum]
+
+
+export const KudoScalarFieldEnum = {
+  id: 'id',
+  sender_id: 'sender_id',
+  receiver_id: 'receiver_id',
+  points: 'points',
+  description: 'description',
+  core_value_id: 'core_value_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type KudoScalarFieldEnum = (typeof KudoScalarFieldEnum)[keyof typeof KudoScalarFieldEnum]
+
+
+export const ReactionScalarFieldEnum = {
+  id: 'id',
+  kudo_id: 'kudo_id',
+  user_id: 'user_id',
+  emoji: 'emoji',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
 
 
 export const SortOrder = {

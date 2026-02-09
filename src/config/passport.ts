@@ -9,7 +9,6 @@ import { JWTPayload } from '../modules/auth/auth.types';
  * Configure Google OAuth Strategy
  */
 export const configureGoogleStrategy = () => {
-  console.log(config.google);
   passport.use(
     new GoogleStrategy(
       {

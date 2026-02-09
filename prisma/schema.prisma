@@ -24,7 +24,58 @@ model User {
   created_at        DateTime  @default(now())
   updated_at        DateTime  @updatedAt
 
+  // Relations
+  kudos_sent     Kudo[]     @relation("KudoSender")
+  kudos_received Kudo[]     @relation("KudoReceiver")
+  reactions      Reaction[]
+
   @@map("users")
+}
+
+model CoreValue {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  emoji       String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  kudos Kudo[]
+
+  @@map("core_values")
+}
+
+model Kudo {
+  id            String    @id @default(uuid())
+  sender_id     String
+  receiver_id   String
+  points        Int       @default(0)
+  description   String?
+  core_value_id String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  sender     User       @relation("KudoSender", fields: [sender_id], references: [id], onDelete: Cascade)
+  receiver   User       @relation("KudoReceiver", fields: [receiver_id], references: [id], onDelete: Cascade)
+  core_value CoreValue? @relation(fields: [core_value_id], references: [id], onDelete: SetNull)
+  reactions  Reaction[]
+
+  @@map("kudos")
+}
+
+model Reaction {
+  id        String   @id @default(uuid())
+  kudo_id   String
+  user_id   String
+  emoji     String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  kudo Kudo @relation(fields: [kudo_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([kudo_id, user_id, emoji])
+  @@map("reactions")
 }
 
 enum Role {

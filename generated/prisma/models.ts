@@ -9,4 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/CoreValue'
+export type * from './models/Kudo'
+export type * from './models/Reaction'
 export type * from './commonInputTypes'

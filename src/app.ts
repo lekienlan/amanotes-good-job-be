@@ -1,8 +1,12 @@
+import cors from 'cors';
 import express from 'express';
 import passportConfig from './config/passport';
 import routes from './routes/v1';
 
 const app = express();
+
+// allow cross-origin requests
+app.use(cors());
 
 // parse json request body
 app.use(express.json());
