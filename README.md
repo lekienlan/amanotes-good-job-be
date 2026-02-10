@@ -63,7 +63,7 @@ Docker Postgres connection from local tools (e.g. DBeaver):
 
 - **Host**: `localhost`
 - **Port**: `5433` (host port mapped to container `5432`)
-- **Database**: `ama_midi`
+- **Database**: `amanotes_good_job`
 - **User**: `postgres`
 - **Password**: `postgres`
 
