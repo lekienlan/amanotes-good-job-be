@@ -18,7 +18,7 @@ REST API Boilerplate with Node.js, TypeScript, Express, Prisma, and Supabase Pos
 
 - Node.js (v16+)
 - Yarn
-- Supabase account (free tier available at [supabase.com](https://supabase.com))
+- Docker Desktop (recommended for local DB via Docker Compose)
 
 ### Installation
 
@@ -28,19 +28,64 @@ REST API Boilerplate with Node.js, TypeScript, Express, Prisma, and Supabase Pos
 yarn install
 ```
 
-2. Create a Supabase project:
-   - Go to [supabase.com](https://supabase.com) and create a free account
-   - Create a new project
-   - Wait for the database to be provisioned (~2 minutes)
+2. Choose your database setup:
 
-3. Get your database connection strings:
+#### Option A: Local DB with Docker (recommended)
+
+This runs **Postgres + Redis + API** locally via Docker Compose.
+
+1. Update `.env` to use Docker service hostnames (already supported by this repo):
+
+```bash
+DATABASE_URL="postgresql://postgres:postgres@db:5432/ama_midi"
+DIRECT_URL="postgresql://postgres:postgres@db:5432/ama_midi"
+REDIS_URL="redis://redis:6379"
+```
+
+2. Start the stack (API + Postgres + Redis):
+
+```bash
+docker compose up -d --build
+```
+
+3. Initialize the database schema (first time on a fresh DB):
+
+```bash
+docker compose exec api yarn db:push
+```
+
+4. (Optional) Seed demo data:
+
+```bash
+docker compose exec api yarn prisma:seed
+```
+
+5. Access the API:
+
+- API base URL: `http://localhost:3000`
+- Health check: `http://localhost:3000/api/v1/health`
+
+6. Connect to the Docker Postgres from tools like DBeaver:
+
+- Host: `localhost`
+- Port: `5433` (host port mapped to container `5432`)
+- Database: `ama_midi`
+- User: `postgres`
+- Password: `postgres`
+
+#### Option B: Hosted DB with Supabase
+
+If you prefer Supabase-hosted Postgres, follow `SUPABASE_SETUP.md` and set `DATABASE_URL`/`DIRECT_URL` accordingly.
+
+3. (Supabase only) Get your database connection strings:
+
    - Go to **Project Settings** > **Database**
    - Scroll to **Connection String** section
    - Copy both:
      - **Session mode** (port 5432) for `DATABASE_URL`
      - **Transaction mode** (port 6543) for `DATABASE_POOLER_URL`
 
-4. Copy and configure environment variables:
+4. (Supabase only) Copy and configure environment variables:
 
 ```bash
 cp .env.example .env
@@ -76,6 +121,7 @@ yarn prisma:seed
 ```
 
 This creates two demo users:
+
 - Admin: `admin@example.com` / `password123`
 - User: `user@example.com` / `password123`
 
@@ -122,30 +168,27 @@ The API will be available at `http://localhost:3000`
 
 ## Environment Variables
 
-Configure these in your `.env` file:
+Configure these in your `.env` file for local Docker:
 
 ```bash
 # Server
 PORT=3000
 NODE_ENV=development
 
-# Supabase Database
-# Get from: Supabase Dashboard > Project Settings > Database > Connection String
-DATABASE_URL="postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@...supabase.com:5432/postgres"
-DATABASE_POOLER_URL="postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@...supabase.com:6543/postgres?pgbouncer=true"
+# Docker Postgres (service hostnames)
+DATABASE_URL="postgresql://postgres:postgres@db:5432/ama_midi"
+DIRECT_URL="postgresql://postgres:postgres@db:5432/ama_midi"
+
+# Redis
+REDIS_URL="redis://redis:6379"
 
 # JWT (if using authentication)
 JWT_SECRET=thisisasamplesecret
-JWT_ACCESS_EXPIRATION_MINUTES=30
+JWT_ACCESS_EXPIRATION_MINUTES=14400
 JWT_REFRESH_EXPIRATION_DAYS=30
-
-# SMTP (if using email)
-SMTP_HOST=email-server
-SMTP_PORT=587
-SMTP_USERNAME=email-server-username
-SMTP_PASSWORD=email-server-password
-EMAIL_FROM=support@yourapp.com
 ```
+
+For Supabase-hosted Postgres, see `SUPABASE_SETUP.md` and use the Supabase connection strings instead.
 
 ## Available Scripts
 
@@ -191,7 +234,7 @@ enum Role {
   USER
   ADMIN
 }
-```
+````
 
 ## Using Prisma Client
 
@@ -208,14 +251,14 @@ const user = await prisma.user.create({
   data: {
     email: 'user@example.com',
     name: 'John Doe',
-    password: hashedPassword,
-  },
+    password: hashedPassword
+  }
 });
 
 // Update a user
 const updatedUser = await prisma.user.update({
   where: { id: userId },
-  data: { name: 'Jane Doe' },
+  data: { name: 'Jane Doe' }
 });
 ```
 
@@ -227,12 +270,14 @@ const updatedUser = await prisma.user.update({
 ## Supabase Tips
 
 ### Access Supabase Dashboard
+
 - Go to [app.supabase.com](https://app.supabase.com)
 - Select your project
 - Use **Table Editor** to view/edit data directly
 - Use **SQL Editor** to run custom queries
 
 ### View Database Locally
+
 Use Prisma Studio for a local GUI:
 
 ```bash
@@ -242,6 +287,7 @@ yarn prisma:studio
 This opens a web interface at `http://localhost:5555` to browse and edit your Supabase database.
 
 ### Reset Database
+
 To reset your database and re-run all migrations:
 
 ```bash
@@ -251,12 +297,16 @@ yarn db:reset
 **Warning:** This will delete all data in your Supabase database!
 
 ### Connection Pooling
+
 The app automatically uses:
+
 - `DATABASE_POOLER_URL` (port 6543) for application connections - recommended for serverless
 - `DATABASE_URL` (port 5432) for migrations and Prisma Studio
 
 ### Monitor Connections
+
 Check active database connections in Supabase Dashboard:
+
 - **Reports** > **Database** > **Active Connections**
 
 ## Contributing

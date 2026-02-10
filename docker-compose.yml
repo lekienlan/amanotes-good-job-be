@@ -1,0 +1,69 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ama_midi_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ama_midi
+    ports:
+      # Exposed for tools like DBeaver
+      # Reason: use 5433 on host to avoid conflicts with any local Postgres on 5432.
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ama_midi"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: ama_midi_redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    # Reason: do not publish 6379 to host to avoid port conflicts.
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ama_midi_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Reason: file watching can be unreliable with bind mounts on macOS.
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+      # Reason: keep linux-generated Prisma client/engines inside docker.
+      - prisma_generated:/app/generated/prisma
+    command: >
+      sh -c "yarn install --frozen-lockfile &&
+             yarn prisma:generate &&
+             yarn dev"
+
+volumes:
+  db_data:
+  redis_data:
+  node_modules:
+  prisma_generated:
+
