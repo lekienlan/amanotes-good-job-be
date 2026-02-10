@@ -7,7 +7,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { logger } from '../../config';
 import { getUsers, getUserById, updateUserById } from './user.service';
-import { PaginationParam } from '../../middlewares/pagination';
+import { PaginationParam } from '../pagination';
 import type { UpdateUserInput } from './user.types';
 
 /**

@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const RedemptionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  FULFILLED: 'FULFILLED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RedemptionStatus = (typeof RedemptionStatus)[keyof typeof RedemptionStatus]
+
+
 export const Role = {
   USER: 'USER',
   ADMIN: 'ADMIN',

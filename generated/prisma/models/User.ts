@@ -279,6 +279,7 @@ export type UserWhereInput = {
   kudos_sent?: Prisma.KudoListRelationFilter
   kudos_received?: Prisma.KudoListRelationFilter
   reactions?: Prisma.ReactionListRelationFilter
+  redemptions?: Prisma.RedemptionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -297,6 +298,7 @@ export type UserOrderByWithRelationInput = {
   kudos_sent?: Prisma.KudoOrderByRelationAggregateInput
   kudos_received?: Prisma.KudoOrderByRelationAggregateInput
   reactions?: Prisma.ReactionOrderByRelationAggregateInput
+  redemptions?: Prisma.RedemptionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -318,6 +320,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   kudos_sent?: Prisma.KudoListRelationFilter
   kudos_received?: Prisma.KudoListRelationFilter
   reactions?: Prisma.ReactionListRelationFilter
+  redemptions?: Prisma.RedemptionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -374,6 +377,7 @@ export type UserCreateInput = {
   kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
   kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -392,6 +396,7 @@ export type UserUncheckedCreateInput = {
   kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
   kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -410,6 +415,7 @@ export type UserUpdateInput = {
   kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
   kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -428,6 +434,7 @@ export type UserUncheckedUpdateInput = {
   kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
   kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -605,6 +612,20 @@ export type UserUpdateOneRequiredWithoutReactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReactionsInput, Prisma.UserUpdateWithoutReactionsInput>, Prisma.UserUncheckedUpdateWithoutReactionsInput>
 }
 
+export type UserCreateNestedOneWithoutRedemptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRedemptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRedemptionsInput
+  upsert?: Prisma.UserUpsertWithoutRedemptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRedemptionsInput, Prisma.UserUpdateWithoutRedemptionsInput>, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+}
+
 export type UserCreateWithoutKudos_sentInput = {
   id?: string
   email: string
@@ -620,6 +641,7 @@ export type UserCreateWithoutKudos_sentInput = {
   updated_at?: Date | string
   kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutKudos_sentInput = {
@@ -637,6 +659,7 @@ export type UserUncheckedCreateWithoutKudos_sentInput = {
   updated_at?: Date | string
   kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutKudos_sentInput = {
@@ -659,6 +682,7 @@ export type UserCreateWithoutKudos_receivedInput = {
   updated_at?: Date | string
   kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutKudos_receivedInput = {
@@ -676,6 +700,7 @@ export type UserUncheckedCreateWithoutKudos_receivedInput = {
   updated_at?: Date | string
   kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  redemptions?: Prisma.RedemptionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutKudos_receivedInput = {
@@ -709,6 +734,7 @@ export type UserUpdateWithoutKudos_sentInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutKudos_sentInput = {
@@ -726,6 +752,7 @@ export type UserUncheckedUpdateWithoutKudos_sentInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutKudos_receivedInput = {
@@ -754,6 +781,7 @@ export type UserUpdateWithoutKudos_receivedInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutKudos_receivedInput = {
@@ -771,6 +799,7 @@ export type UserUncheckedUpdateWithoutKudos_receivedInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  redemptions?: Prisma.RedemptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReactionsInput = {
@@ -788,6 +817,7 @@ export type UserCreateWithoutReactionsInput = {
   updated_at?: Date | string
   kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
   kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
+  redemptions?: Prisma.RedemptionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReactionsInput = {
@@ -805,6 +835,7 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   updated_at?: Date | string
   kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
   kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
+  redemptions?: Prisma.RedemptionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReactionsInput = {
@@ -838,6 +869,7 @@ export type UserUpdateWithoutReactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
   kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
+  redemptions?: Prisma.RedemptionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReactionsInput = {
@@ -855,6 +887,95 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
   kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
+  redemptions?: Prisma.RedemptionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRedemptionsInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRedemptionsInput = {
+  id?: string
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  avatar?: string | null
+  points_balance?: number
+  giving_budget?: number
+  last_budget_reset?: Date | string | null
+  role?: $Enums.Role
+  department?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  kudos_sent?: Prisma.KudoUncheckedCreateNestedManyWithoutSenderInput
+  kudos_received?: Prisma.KudoUncheckedCreateNestedManyWithoutReceiverInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRedemptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+}
+
+export type UserUpsertWithoutRedemptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRedemptionsInput, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRedemptionsInput, Prisma.UserUncheckedCreateWithoutRedemptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRedemptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRedemptionsInput, Prisma.UserUncheckedUpdateWithoutRedemptionsInput>
+}
+
+export type UserUpdateWithoutRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRedemptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  points_balance?: Prisma.IntFieldUpdateOperationsInput | number
+  giving_budget?: Prisma.IntFieldUpdateOperationsInput | number
+  last_budget_reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  kudos_sent?: Prisma.KudoUncheckedUpdateManyWithoutSenderNestedInput
+  kudos_received?: Prisma.KudoUncheckedUpdateManyWithoutReceiverNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -866,12 +987,14 @@ export type UserCountOutputType = {
   kudos_sent: number
   kudos_received: number
   reactions: number
+  redemptions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   kudos_sent?: boolean | UserCountOutputTypeCountKudos_sentArgs
   kudos_received?: boolean | UserCountOutputTypeCountKudos_receivedArgs
   reactions?: boolean | UserCountOutputTypeCountReactionsArgs
+  redemptions?: boolean | UserCountOutputTypeCountRedemptionsArgs
 }
 
 /**
@@ -905,6 +1028,13 @@ export type UserCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.ReactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRedemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RedemptionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -922,6 +1052,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   kudos_sent?: boolean | Prisma.User$kudos_sentArgs<ExtArgs>
   kudos_received?: boolean | Prisma.User$kudos_receivedArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  redemptions?: boolean | Prisma.User$redemptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -975,6 +1106,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   kudos_sent?: boolean | Prisma.User$kudos_sentArgs<ExtArgs>
   kudos_received?: boolean | Prisma.User$kudos_receivedArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  redemptions?: boolean | Prisma.User$redemptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -986,6 +1118,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     kudos_sent: Prisma.$KudoPayload<ExtArgs>[]
     kudos_received: Prisma.$KudoPayload<ExtArgs>[]
     reactions: Prisma.$ReactionPayload<ExtArgs>[]
+    redemptions: Prisma.$RedemptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1397,6 +1530,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   kudos_sent<T extends Prisma.User$kudos_sentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kudos_sentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   kudos_received<T extends Prisma.User$kudos_receivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kudos_receivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KudoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reactions<T extends Prisma.User$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  redemptions<T extends Prisma.User$redemptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$redemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RedemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1895,6 +2029,30 @@ export type User$reactionsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ReactionScalarFieldEnum | Prisma.ReactionScalarFieldEnum[]
+}
+
+/**
+ * User.redemptions
+ */
+export type User$redemptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Redemption
+   */
+  select?: Prisma.RedemptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Redemption
+   */
+  omit?: Prisma.RedemptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RedemptionInclude<ExtArgs> | null
+  where?: Prisma.RedemptionWhereInput
+  orderBy?: Prisma.RedemptionOrderByWithRelationInput | Prisma.RedemptionOrderByWithRelationInput[]
+  cursor?: Prisma.RedemptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RedemptionScalarFieldEnum | Prisma.RedemptionScalarFieldEnum[]
 }
 
 /**

@@ -54,7 +54,9 @@ export const ModelName = {
   User: 'User',
   CoreValue: 'CoreValue',
   Kudo: 'Kudo',
-  Reaction: 'Reaction'
+  Reaction: 'Reaction',
+  Reward: 'Reward',
+  Redemption: 'Redemption'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -127,6 +129,34 @@ export const ReactionScalarFieldEnum = {
 } as const
 
 export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
+
+
+export const RewardScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  points_cost: 'points_cost',
+  image_url: 'image_url',
+  stock: 'stock',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RewardScalarFieldEnum = (typeof RewardScalarFieldEnum)[keyof typeof RewardScalarFieldEnum]
+
+
+export const RedemptionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  reward_id: 'reward_id',
+  points_spent: 'points_spent',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RedemptionScalarFieldEnum = (typeof RedemptionScalarFieldEnum)[keyof typeof RedemptionScalarFieldEnum]
 
 
 export const SortOrder = {

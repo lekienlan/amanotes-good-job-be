@@ -57,3 +57,13 @@ export type Kudo = Prisma.KudoModel
  * 
  */
 export type Reaction = Prisma.ReactionModel
+/**
+ * Model Reward
+ * 
+ */
+export type Reward = Prisma.RewardModel
+/**
+ * Model Redemption
+ * 
+ */
+export type Redemption = Prisma.RedemptionModel

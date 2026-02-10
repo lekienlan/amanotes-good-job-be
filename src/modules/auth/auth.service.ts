@@ -28,7 +28,7 @@ export const findOrCreateUser = async (googleProfile: GoogleProfile): Promise<Us
         last_name: lastName || null,
         avatar: picture || null,
         points_balance: 0,
-        giving_budget: 0,
+        giving_budget: 200,
         role: Role.USER,
         department: null,
         last_budget_reset: null

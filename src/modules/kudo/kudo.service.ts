@@ -4,23 +4,53 @@
  */
 
 import { prisma } from '../../config';
-import { pagination } from '../../middlewares/pagination';
-import { PaginationParam } from '../../middlewares/pagination/pagination.types';
+import { pagination } from '../pagination';
+import { PaginationParam } from '../pagination/pagination.types';
 import { CreateKudoInput, UpdateKudoInput, CreateReactionInput } from './kudo.types';
 
 /**
  * Create a new kudo
  */
 export const createKudo = async (senderId: string, data: CreateKudoInput) => {
-  return await prisma.kudo.create({
-    data: {
-      sender_id: senderId,
-      receiver_id: data.receiver_id,
-      points: data.points,
-      description: data.description ?? null,
-      core_value_id: data.core_value_id ?? null
-    },
-    include: { reactions: true }
+  // Reason: when creating a kudo we must also
+  // - decrease sender.giving_budget by points
+  // - increase receiver.points_balance by points
+  // Do everything in a single transaction to keep data consistent.
+  const { receiver_id, points, description, core_value_id } = data;
+
+  return await prisma.$transaction(async (tx) => {
+    const kudo = await tx.kudo.create({
+      data: {
+        sender_id: senderId,
+        receiver_id,
+        points,
+        description: description ?? null,
+        core_value_id: core_value_id ?? null
+      },
+      include: { reactions: true }
+    });
+
+    // Update sender giving budget (points they can give)
+    await tx.user.update({
+      where: { id: senderId },
+      data: {
+        giving_budget: {
+          decrement: points
+        }
+      }
+    });
+
+    // Update receiver points balance (points they have received)
+    await tx.user.update({
+      where: { id: receiver_id },
+      data: {
+        points_balance: {
+          increment: points
+        }
+      }
+    });
+
+    return kudo;
   });
 };
 

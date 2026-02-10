@@ -4,7 +4,7 @@
  */
 
 import { prisma } from '../../config';
-import { pagination, PaginationParam } from '../../middlewares/pagination';
+import { pagination, PaginationParam } from '../pagination';
 import type { UpdateUserInput } from './user.types';
 
 /**

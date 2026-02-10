@@ -25,9 +25,10 @@ model User {
   updated_at        DateTime  @updatedAt
 
   // Relations
-  kudos_sent     Kudo[]     @relation("KudoSender")
-  kudos_received Kudo[]     @relation("KudoReceiver")
+  kudos_sent     Kudo[]       @relation("KudoSender")
+  kudos_received Kudo[]       @relation("KudoReceiver")
   reactions      Reaction[]
+  redemptions    Redemption[]
 
   @@map("users")
 }
@@ -64,10 +65,10 @@ model Kudo {
 }
 
 model Reaction {
-  id        String   @id @default(uuid())
-  kudo_id   String
-  user_id   String
-  emoji     String
+  id         String   @id @default(uuid())
+  kudo_id    String
+  user_id    String
+  emoji      String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -76,6 +77,44 @@ model Reaction {
 
   @@unique([kudo_id, user_id, emoji])
   @@map("reactions")
+}
+
+model Reward {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  points_cost Int
+  image_url   String?
+  stock       Int      @default(0)
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  redemptions Redemption[]
+
+  @@map("rewards")
+}
+
+enum RedemptionStatus {
+  PENDING
+  APPROVED
+  FULFILLED
+  CANCELLED
+}
+
+model Redemption {
+  id           String           @id @default(uuid())
+  user_id      String
+  reward_id    String
+  points_spent Int
+  status       RedemptionStatus @default(PENDING)
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  reward Reward @relation(fields: [reward_id], references: [id], onDelete: Cascade)
+
+  @@map("redemptions")
 }
 
 enum Role {

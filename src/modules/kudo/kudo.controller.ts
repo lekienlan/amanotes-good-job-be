@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { User } from '../../../generated/prisma/client';
 import { logger } from '../../config';
+import type { Kudo } from './kudo.types';
 import {
   createKudo,
   getKudoById,
@@ -17,6 +18,7 @@ import {
   removeReaction
 } from './kudo.service';
 import { CreateKudoInput, UpdateKudoInput } from './kudo.types';
+import { KudoRealtimeEmitter } from './kudo.emitter';
 
 /**
  * Transform Prisma kudo to API response format (snake_case)
@@ -39,6 +41,11 @@ const toKudoResponse = (kudo: any) => ({
     updated_at: r.updated_at
   }))
 });
+
+/** Get kudo realtime emitter from app.locals (set in index.ts). No-op if not set (e.g. tests). */
+export function getKudoEmitter(req: Request): KudoRealtimeEmitter | undefined {
+  return (req.app as any).locals?.realtime;
+}
 
 /**
  * POST /kudos - Create kudo
@@ -65,7 +72,9 @@ export const createKudoHandler = async (req: Request, res: Response) => {
     logger.debug(
       `createKudoHandler: kudo created - kudoId=${kudo.id}, senderId=${user.id}, receiver_id=${data.receiver_id}`
     );
-    res.status(httpStatus.CREATED).json(toKudoResponse(kudo));
+    const payload = toKudoResponse(kudo) as Kudo;
+    res.status(httpStatus.CREATED).json(payload);
+    getKudoEmitter(req)?.emitKudoCreated(payload);
   } catch (error) {
     logger.error(
       `createKudoHandler: failed to create kudo - ${
@@ -161,7 +170,9 @@ export const updateKudoHandler = async (req: Request, res: Response) => {
     }
 
     const kudo = await updateKudo(id, data);
-    res.json(toKudoResponse(kudo));
+    const payload = toKudoResponse(kudo) as Kudo;
+    res.json(payload);
+    getKudoEmitter(req)?.emitKudoUpdated(payload);
   } catch (error) {
     console.error('Error updating kudo:', error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
@@ -195,6 +206,7 @@ export const deleteKudoHandler = async (req: Request, res: Response) => {
     }
 
     await deleteKudo(id);
+    getKudoEmitter(req)?.emitKudoDeleted(existing);
     res.status(httpStatus.NO_CONTENT).send();
   } catch (error) {
     console.error('Error deleting kudo:', error);
@@ -232,7 +244,9 @@ export const addReactionHandler = async (req: Request, res: Response) => {
 
     await addReaction(user.id, { kudo_id: kudoId, emoji });
     const updated = await getKudoById(kudoId);
-    res.status(httpStatus.CREATED).json(toKudoResponse(updated!));
+    const payload = toKudoResponse(updated!) as Kudo;
+    res.status(httpStatus.CREATED).json(payload);
+    getKudoEmitter(req)?.emitReactionAdded(payload);
   } catch (error) {
     console.error('Error adding reaction:', error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
@@ -268,7 +282,9 @@ export const removeReactionHandler = async (req: Request, res: Response) => {
 
     await removeReaction(kudoId, user.id, emoji);
     const updated = await getKudoById(kudoId);
-    res.json(toKudoResponse(updated!));
+    const payload = toKudoResponse(updated!) as Kudo;
+    res.json(payload);
+    getKudoEmitter(req)?.emitReactionRemoved(payload);
   } catch (error) {
     console.error('Error removing reaction:', error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
