@@ -12,7 +12,9 @@ datasource db {
 // Example models - customize based on your needs
 model User {
   id                String    @id @default(uuid())
+  user_name         String    @unique
   email             String    @unique
+  password          String
   first_name        String?
   last_name         String?
   avatar            String?

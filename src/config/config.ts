@@ -12,12 +12,6 @@ dotenv.config({ path: envPath });
 export default {
   port: process.env.PORT || 3000,
   env: process.env.NODE_ENV || 'development',
-  google: {
-    clientId: process.env.GOOGLE_CLIENT_ID || '',
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    callbackURL:
-      process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/api/v1/auth/google/callback'
-  },
   frontend: {
     url: process.env.FRONTEND_URL || 'http://localhost:5173'
   },

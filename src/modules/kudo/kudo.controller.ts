@@ -52,8 +52,7 @@ export function getKudoEmitter(req: Request): KudoRealtimeEmitter | undefined {
  */
 export const createKudoHandler = async (req: Request, res: Response) => {
   try {
-    // const user = req.user as User;
-    const user = { id: 'acaa70fc-7a74-4ce5-96a3-d884da418a88' };
+    const user = req.user as User;
     const data = req.body as CreateKudoInput;
 
     logger.debug(
@@ -224,8 +223,7 @@ export const addReactionHandler = async (req: Request, res: Response) => {
   try {
     const { id: kudoId } = req.params;
     const { emoji } = req.body;
-    // const user = req.user as User;
-    const user = { id: 'acaa70fc-7a74-4ce5-96a3-d884da418a88' };
+    const user = req.user as User;
 
     if (!emoji || typeof emoji !== 'string') {
       return res.status(httpStatus.BAD_REQUEST).json({

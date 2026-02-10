@@ -18,7 +18,7 @@ import {
 const router = express.Router();
 
 // All kudo routes require authentication
-// router.use(authenticate());
+router.use(authenticate());
 
 /**
  * @route   POST /kudos

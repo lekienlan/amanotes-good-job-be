@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { User } from '../../../generated/prisma/client';
-import config from '../../config/config';
-import { redis } from '../../config';
 import { generateTokens } from '../../utils/jwt.util';
-import { getAndDeleteTokensByCode, storeTokensByCode } from './auth.service';
+import { validateUserCredentials } from './auth.service';
 
 /**
  * Transform User to API response format (snake_case)
@@ -26,9 +24,10 @@ const toUserResponse = (user: User) => ({
 
 /**
  * GET /me - Get current authenticated user
+ * User is provided by Passport JWT middleware via req.user.
  */
 export const getMe = (req: Request, res: Response) => {
-  const user = req.user as User;
+  const user = req.user as User | undefined;
 
   if (!user) {
     return res.status(httpStatus.UNAUTHORIZED).json({
@@ -41,70 +40,33 @@ export const getMe = (req: Request, res: Response) => {
 };
 
 /**
- * Google OAuth callback handler
- * Stores tokens in Redis under a one-time code and redirects to frontend with that code.
+ * POST /auth/login - Simple username/password login
+ * Body: { user_name: string, password: string }
  */
-export const googleCallback = async (req: Request, res: Response) => {
-  try {
-    const user = req.user as User;
+export const login = async (req: Request, res: Response) => {
+  const { user_name, password } = req.body || {};
 
-    if (!user) {
-      return res.redirect(`${config.frontend.url}/login?error=authentication_failed`);
-    }
-
-    const { accessToken, refreshToken } = generateTokens(user.id);
-
-    try {
-      const code = await storeTokensByCode(accessToken, refreshToken);
-      return res.redirect(`${config.frontend.url}/login?code=${code}`);
-    } catch {
-      return res.redirect(`${config.frontend.url}/login?error=redis_unavailable`);
-    }
-  } catch (error) {
-    console.error('Error in googleCallback:', error);
-    return res.redirect(`${config.frontend.url}/login?error=server_error`);
-  }
-};
-
-/**
- * POST /auth/token - Exchange one-time code for access and refresh tokens.
- * Body: { code: string }. Code is consumed (one-time use).
- */
-export const exchangeTokenByCode = async (req: Request, res: Response) => {
-  if (!redis) {
-    return res.status(httpStatus.SERVICE_UNAVAILABLE).json({
-      message: 'Service Unavailable',
-      error: 'Token exchange is unavailable'
-    });
-  }
-
-  const code = req.body?.code;
-
-  if (typeof code !== 'string' || !code.trim()) {
+  if (typeof user_name !== 'string' || typeof password !== 'string') {
     return res.status(httpStatus.BAD_REQUEST).json({
       message: 'Bad Request',
-      error: 'code is required'
+      error: '`user_name` and `password` are required as strings'
     });
   }
 
-  const tokens = await getAndDeleteTokensByCode(code.trim());
+  const user = await validateUserCredentials(user_name, password);
 
-  if (!tokens) {
+  if (!user) {
     return res.status(httpStatus.UNAUTHORIZED).json({
       message: 'Unauthorized',
-      error: 'invalid or expired code'
+      error: 'Invalid credentials'
     });
   }
 
-  return res.json({
-    accessToken: tokens.accessToken,
-    refreshToken: tokens.refreshToken
-  });
-};
+  const { accessToken, refreshToken } = generateTokens(user.id);
 
-/**
- * Handle authentication failure - redirect to frontend with error
- */
-export const authFailure = (req: Request, res: Response) => {
-  res.redirect(`${config.frontend.url}/login?error=authentication_failed`);
+  return res.json({
+    user: toUserResponse(user),
+    accessToken,
+    refreshToken
+  });
 };

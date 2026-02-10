@@ -1,10 +1,11 @@
 import cors from 'cors';
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import http from 'http';
-import passportConfig from './config/passport';
+import passport from 'passport';
 import routes from './routes/v1';
 import { initRealtime } from './config/socket_io';
 import type { KudoRealtimeEmitter } from './modules/kudo/kudo.emitter';
+import { configurePassport } from './config/passport';
 
 const app = express();
 
@@ -17,8 +18,8 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
-// configure passport
-passportConfig();
+// initialize Passport (JWT strategy)
+configurePassport();
 
 // v1 api routes
 app.use('/api/v1', routes);
