@@ -15,11 +15,11 @@ Create `.env` (or update it) to use the Docker service hostnames:
 PORT=3000
 NODE_ENV=development
 
-DATABASE_URL="postgresql://postgres:postgres@db:5432/ama_midi"
-DIRECT_URL="postgresql://postgres:postgres@db:5432/ama_midi"
+DATABASE_URL="postgresql://postgres:postgres@db:5432/amanotes_good_job"
+DIRECT_URL="postgresql://postgres:postgres@db:5432/amanotes_good_job"
 REDIS_URL="redis://redis:6379"
 
-JWT_SECRET=thisisasamplesecret
+JWT_SECRET=goodjobsecret
 JWT_ACCESS_EXPIRATION_MINUTES=14400
 JWT_REFRESH_EXPIRATION_DAYS=30
 ```
@@ -66,3 +66,17 @@ Docker Postgres connection from local tools (e.g. DBeaver):
 - **Database**: `ama_midi`
 - **User**: `postgres`
 - **Password**: `postgres`
+
+## 5. Restart containers if something breaks
+
+If the API or database containers ever crash or get into a bad state, you can restart them with:
+
+```bash
+docker compose restart
+```
+
+Or restart just the API service:
+
+```bash
+docker compose restart api
+```

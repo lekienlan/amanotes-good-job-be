@@ -1,12 +1,14 @@
+name: amanotes_good_job
+
 services:
   db:
     image: postgres:16-alpine
-    container_name: ama_midi_db
+    container_name: amanotes_good_job_db
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ama_midi
+      POSTGRES_DB: amanotes_good_job
     ports:
       # Exposed for tools like DBeaver
       # Reason: use 5433 on host to avoid conflicts with any local Postgres on 5432.
@@ -14,14 +16,14 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d ama_midi"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d amanotes_good_job"]
       interval: 5s
       timeout: 5s
       retries: 20
 
   redis:
     image: redis:7-alpine
-    container_name: ama_midi_redis
+    container_name: amanotes_good_job_redis
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
     # Reason: do not publish 6379 to host to avoid port conflicts.
@@ -37,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ama_midi_api
+    container_name: amanotes_good_job_api
     restart: unless-stopped
     env_file:
       - .env

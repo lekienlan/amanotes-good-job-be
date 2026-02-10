@@ -30,7 +30,7 @@ export const PREDEFINED_REWARDS: Pick<
   {
     name: 'Company Hoodie',
     description: 'Premium quality company branded hoodie',
-    points_cost: 500,
+    points_cost: 50,
     image_url: 'https://via.placeholder.com/300x300?text=Hoodie',
     stock: 25,
     is_active: true
@@ -38,7 +38,7 @@ export const PREDEFINED_REWARDS: Pick<
   {
     name: 'Friday Afternoon Off',
     description: 'Leave early on a Friday of your choice',
-    points_cost: 1000,
+    points_cost: 200,
     image_url: 'https://via.placeholder.com/300x300?text=Time+Off',
     stock: 100,
     is_active: true
@@ -46,7 +46,7 @@ export const PREDEFINED_REWARDS: Pick<
   {
     name: 'Premium Parking Spot',
     description: 'Reserved parking for one month',
-    points_cost: 750,
+    points_cost: 100,
     image_url: 'https://via.placeholder.com/300x300?text=Parking',
     stock: 5,
     is_active: true
@@ -70,7 +70,7 @@ export const PREDEFINED_REWARDS: Pick<
   {
     name: 'Gift Card $50',
     description: 'Amazon or similar retailer gift card',
-    points_cost: 600,
+    points_cost: 20,
     image_url: 'https://via.placeholder.com/300x300?text=Gift+Card',
     stock: 50,
     is_active: true

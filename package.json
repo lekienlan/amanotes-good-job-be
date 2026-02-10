@@ -1,5 +1,5 @@
 {
-  "name": "ama-midi-be",
+  "name": "amanotes-good-job-be",
   "version": "0.0.1",
   "description": "REST API Boilerplate with Node JS, TypeScript, Express and Prisma",
   "main": "src/index.ts",
