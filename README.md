@@ -1,4 +1,4 @@
-# AMA MIDI Backend API
+# Amanotes Good Job Backend API
 
 Minimal quickstart to run the API **with Docker (Postgres + Redis + API)**.
 
